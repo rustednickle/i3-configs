@@ -260,6 +260,7 @@ exec --no-startup-id dunst
 bindsym control+F5 exec "picom-trans -c -1"
 bindsym control+F6 exec "picom-trans -c +3"
 
+
 exec --no-startup-id syndaemon -i 2.0 -t
 
 bindsym $mod+t exec "$script_folder/showtime.sh"
