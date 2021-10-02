@@ -10,6 +10,7 @@ alias stpo="stg pop"
 alias sts="stg series"
 alias stsh="stg show"
 alias gl="git log --oneline"
+alias sd="sudo docker"
 
 hackernews() {
 	curl getnews.tech/hacker-news
