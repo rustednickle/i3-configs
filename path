@@ -1,0 +1,31 @@
+alias c="clear"
+alias l="ls -ath"
+alias gc="git checkout"
+alias gb="git branch"
+alias gst="git status"
+alias stst="stg status"
+alias str="stg refresh"
+alias stpu="stg push"
+alias stpo="stg pop"
+alias sts="stg series"
+alias stsh="stg show"
+alias gl="git log --oneline"
+
+hackernews() {
+	curl getnews.tech/hacker-news
+}
+
+sshp8() {
+	sshpass -p abc123 ssh root@$1 -o StrictHostKeyChecking=no UserKnownHostsFile=/dev/null -o LogLevel=quiet
+	if [ $? -ne 0 ];
+	then 
+		ssh-keygen -R $1;
+		sshpass -p abc123 ssh root@$1 -o StrictHostKeyChecking=no
+	fi
+}
+
+gn() {
+	curl getnews.tech/$1
+}
+
+export CSCOPE_EDITOR=vim
