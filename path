@@ -10,12 +10,15 @@ alias stpo="stg pop"
 alias sts="stg series"
 alias stsh="stg show"
 alias gl="git log --oneline"
+alias sd="sudo docker"
+
 
 hackernews() {
 	curl getnews.tech/hacker-news
 }
 
-sshp8() {
+
+autossh() {
 	sshpass -p abc123 ssh root@$1 -o StrictHostKeyChecking=no UserKnownHostsFile=/dev/null -o LogLevel=quiet
 	if [ $? -ne 0 ];
 	then 
@@ -28,4 +31,7 @@ gn() {
 	curl getnews.tech/$1
 }
 
+
 export CSCOPE_EDITOR=vim
+
+alias vim="nvim"
