@@ -64,7 +64,9 @@ bindsym mod1+F4 kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 80 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+# bindsym $mod+d exec rofi -show run -theme ~/.config/rofi/arthur.rasi
+# bindsym $mod+d exec rofi -show run -theme ~/.config/rofi/sidetab.rasi
+bindsym $mod+d exec rofi -show run -theme ~/.config/rofi/flamingo.rasi
 
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -73,12 +75,6 @@ bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 80 -opacit
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -127,14 +123,13 @@ bindsym $mod+a focus parent
 set $ws1 "1: "
 set $ws2 "2: "
 set $ws3 "3:"
-set $ws4 "4"
+set $ws4 ""
 set $ws5 "5: "
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "0"
-set $ws_slack ""
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -147,7 +142,6 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
-bindsym $mod+control+c workspace $ws_slack
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -160,7 +154,6 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
-# bindsym $mod+Shift+c move container to workspace $ws_slack
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -205,7 +198,7 @@ bar {
 	mode dock
 	position top
 	tray_output primary
-	font pango:DejaVu Sans Mono 10
+	font pango:DejaVu Sans Mono 12
 	i3bar_command i3bar --transparency
 	colors {
         	background #00000000
@@ -224,6 +217,8 @@ default_border none
 
 exec_always --no-startup-id $script_folder/i3-cycle-focus.py --history 2
 bindsym $mod1+Tab exec --no-startup-id i3-cycle-focus.py --switch
+
+# xss-lock -n $script_folder/dim-screen.sh -- "$HOME/.config/i3/scripts/lock.sh $HOME/.config/i3/scripts/lock.png"
 
 bindsym $mod+x exec "$HOME/.config/i3/scripts/lock.sh $HOME/.config/i3/scripts/lock.png"
 
@@ -260,13 +255,14 @@ exec --no-startup-id dunst
 bindsym control+F5 exec "picom-trans -c -1"
 bindsym control+F6 exec "picom-trans -c +3"
 
+
 exec --no-startup-id syndaemon -i 2.0 -t
 
 bindsym $mod+t exec "$script_folder/showtime.sh"
 
 assign [class="Rhythmbox"] $ws5
 assign [class="firefox"] $ws1
-assign [class="Slack"] $ws_slack
+assign [class="Slack"] $ws4
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -274,5 +270,16 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
-default_orientation vertical #start in opposite orientation from your monitor
+# My default i3 tiling
+default_orientation horizontal #start in opposite orientation from your monitor
 for_window [class=".*"] split toggle #toggles split at each new window
+for_window [workspace=$ws1] layout stacking
+
+# Screenshot
+bindsym Print exec scrot "$HOME/Pictures/$(date).jpg"
+
+# Rhythmbox shorcuts
+bindsym $mod+control+Home exec "rhythmbox-client --play --shuffle"
+bindsym $mod+control+End exec "rhythmbox-client --pause"
+bindsym $mod+Home exec "rhythmbox-client --next"
+bindsym $mod+End exec "rhythmbox-client --previous"

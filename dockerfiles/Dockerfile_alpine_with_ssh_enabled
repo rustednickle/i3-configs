@@ -1,0 +1,18 @@
+FROM alpine
+
+RUN apk add openrc openssh
+RUN rc-update add sshd
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+RUN echo "ClientAliveInterval 60" >> /etc/ssh/sshd_config
+RUN echo "ClientAliveCountMax 10" >> /etc/ssh/sshd_config
+RUN sed -i 's/GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config
+RUN sed -i 's/AllowTcpForwarding no/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
+
+RUN rc-status
+RUN touch /run/openrc/softlevel
+RUN /etc/init.d/sshd start
+RUN adduser -D u
+RUN echo "u:.." | chpasswd
+RUN echo "/etc/init.d/sshd stop; /etc/init.d/sshd start; sleep 10000" >> /entry.sh
+RUN chmod +x /entry.sh
+CMD ["sh", "/entry.sh"]
