@@ -1,3 +1,4 @@
 This contains a i3wm-gapps related config files along with:
 - source path
 - fish shell configs
+- Dockerfile
