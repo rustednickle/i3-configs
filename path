@@ -9,7 +9,7 @@ alias stpu="stg push"
 alias stpo="stg pop"
 alias sts="stg series"
 alias stsh="stg show"
-alias gl="git log --oneline"
+alias gl="git log --oneline --decorate"
 alias sd="sudo docker"
 
 hackernews() {
