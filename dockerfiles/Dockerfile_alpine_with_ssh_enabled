@@ -13,6 +13,7 @@ RUN touch /run/openrc/softlevel
 RUN /etc/init.d/sshd start
 RUN adduser -D u
 RUN echo "u:.." | chpasswd
+RUN echo "Initalizing....."
 RUN echo "/etc/init.d/sshd stop; /etc/init.d/sshd start; sleep 10000" >> /entry.sh
 RUN chmod +x /entry.sh
 CMD ["sh", "/entry.sh"]
